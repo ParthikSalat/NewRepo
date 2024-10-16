@@ -1,0 +1,59 @@
+﻿@model IEnumerable<EventAPI.Models.OrganizerTb>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.OrganizerId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrganizerName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrganizerEmail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrganizerMobileNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrganizerPassword)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrganizerId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrganizerName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrganizerEmail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrganizerMobileNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrganizerPassword)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
