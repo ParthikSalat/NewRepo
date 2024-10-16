@@ -1,7 +1,7 @@
 ﻿@model EventAPI.Models.OrganizerTb
 
 @{
-    ViewData["Title"] = "Login";
+    ViewData["Title"] = "Register";
 }
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
@@ -75,16 +75,28 @@
 </style>
 
 <div class="login-container">
-    <h1>Login</h1>
+    <h1>Register</h1>
     <h4>OrganizerTb</h4>
     <hr />
-    <form asp-action="login">
+    <form asp-action="Create">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="form-group">
+            <label asp-for="OrganizerName" class="control-label">Name</label>
+            <input asp-for="OrganizerName" class="form-control" />
+            <span asp-validation-for="OrganizerName" class="text-danger"></span>
+        </div>
 
         <div class="form-group">
             <label asp-for="OrganizerEmail" class="control-label">Email</label>
             <input asp-for="OrganizerEmail" class="form-control" />
             <span asp-validation-for="OrganizerEmail" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="OrganizerMobileNo" class="control-label">Mobile No</label>
+            <input asp-for="OrganizerMobileNo" class="form-control" />
+            <span asp-validation-for="OrganizerMobileNo" class="text-danger"></span>
         </div>
 
         <div class="form-group">
@@ -94,14 +106,13 @@
         </div>
 
         <div class="form-group">
-            <input type="submit" value="Login" class="btn btn-primary" />
+            <input type="submit" value="Create" class="btn btn-primary" />
         </div>
     </form>
 </div>
 
 <div class="footer-links">
-    <a asp-action="Index">Back to List</a>
-    <a asp-action="create">Register</a>
+    <a asp-action="login">Back to Login</a>
 </div>
 
 @section Scripts {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 
 namespace EventAPI.Models;
@@ -14,21 +15,21 @@ public partial class EventDbContext : DbContext
         : base(options)
     {
     }
-
+  
     public virtual DbSet<BookingHistoryTb> BookingHistoryTbs { get; set; }
-
+   
     public virtual DbSet<BookingRefundTb> BookingRefundTbs { get; set; }
-
+   
     public virtual DbSet<BookingTb> BookingTbs { get; set; }
-
+   
     public virtual DbSet<EventTb> EventTbs { get; set; }
-
+   
     public virtual DbSet<OrganizerTb> OrganizerTbs { get; set; }
-
+   
     public virtual DbSet<PaymentTb> PaymentTbs { get; set; }
-
+  
     public virtual DbSet<TicketTb> TicketTbs { get; set; }
-
+  
     public virtual DbSet<UserTb> UserTbs { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

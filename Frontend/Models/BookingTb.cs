@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace EventAPI.Models;
@@ -20,14 +21,14 @@ public partial class BookingTb
     public string? BookingStatus { get; set; }
 
     public string? NumberOfTicket { get; set; }
-
+    [JsonIgnore]
     public virtual ICollection<BookingRefundTb> BookingRefundTbs { get; set; } = new List<BookingRefundTb>();
-
+    [JsonIgnore]
     public virtual EventTb? Event { get; set; }
-
+    [JsonIgnore]
     public virtual ICollection<PaymentTb> PaymentTbs { get; set; } = new List<PaymentTb>();
-
+    [JsonIgnore]
     public virtual ICollection<TicketTb> TicketTbs { get; set; } = new List<TicketTb>();
-
+    [JsonIgnore]
     public virtual UserTb? User { get; set; }
 }

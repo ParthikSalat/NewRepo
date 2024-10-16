@@ -16,6 +16,7 @@ namespace Frontend.Controllers
             return View(a);
         }
 
+
         public async Task<ActionResult> login(OrganizerTb model)
         {
             var data = await client.GetFromJsonAsync<List<OrganizerTb>>($"{apiUrl}");
@@ -23,7 +24,8 @@ namespace Frontend.Controllers
             if (a != null)
             {
                 HttpContext.Session.SetString("email",a.OrganizerEmail);
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("CreateEvent");
+
             }
             else
             {
@@ -48,11 +50,16 @@ namespace Frontend.Controllers
         // POST: OrganizerController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<ActionResult> Create(OrganizerTb data)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    await client.PostAsJsonAsync($"{apiUrl}", data);
+                    return RedirectToAction(nameof(login));
+                }
+                else { return View(); }
             }
             catch
             {
@@ -104,5 +111,9 @@ namespace Frontend.Controllers
                 return View();
             }
         }
+
+      
+
+
     }
 }

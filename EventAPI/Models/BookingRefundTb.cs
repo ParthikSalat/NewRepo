@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace EventAPI.Models;
 
@@ -16,8 +17,8 @@ public partial class BookingRefundTb
     public int? NumberOfTicketCancelled { get; set; }
 
     public DateTime? CancleDate { get; set; }
-
+    [JsonIgnore]
     public virtual BookingTb? Booking { get; set; }
-
+    [JsonIgnore]
     public virtual EventTb? Event { get; set; }
 }
