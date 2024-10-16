@@ -87,10 +87,7 @@ namespace Frontend.Controllers
             return View();
         }
 
-        public ActionResult Details1(int id)
-        {
-            return View();
-        }
+       
 
 
         // POST: OrganizerController/Delete/5
