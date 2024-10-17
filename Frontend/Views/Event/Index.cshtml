@@ -1,0 +1,83 @@
+﻿@model IEnumerable<EventAPI.Models.EventTb>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.EventId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrganizerId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EventName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EventType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EventArtist)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EventThem)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EventTicketPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EventMoreDetails)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EventImage)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.EventId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrganizerId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EventName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EventType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EventArtist)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EventThem)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EventTicketPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EventMoreDetails)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EventImage)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new {  id=item.EventId  }) |
+                    @Html.ActionLink("Details", "Details", new {  id = item.EventId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.EventId })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
