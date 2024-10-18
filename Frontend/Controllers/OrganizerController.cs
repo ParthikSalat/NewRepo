@@ -24,7 +24,9 @@ namespace Frontend.Controllers
             if (a != null)
             {
                 HttpContext.Session.SetString("email",a.OrganizerEmail);
-                return RedirectToAction("CreateEvent");
+                HttpContext.Session.SetInt32("organizerid", a.OrganizerId);
+
+                return RedirectToAction("Index","Event");
 
             }
             else

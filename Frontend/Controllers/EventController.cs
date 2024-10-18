@@ -13,8 +13,16 @@ namespace Frontend.Controllers
         HttpClient client=new HttpClient();
         public async Task<ActionResult> Index()
         {
+            var organizerid = HttpContext.Session.GetInt32("organizerid");
+            if(organizerid==null)
+            {
+                return RedirectToAction("login", "Organizer");
+
+            }
             var a = await client.GetFromJsonAsync<List<EventTb>>($"{apiUrl}");
-            return View(a);
+            var data=a.Where(o=>o.OrganizerId==organizerid).ToList();
+
+            return View(data);
         }
 
         // GET: EventController/Details/5
