@@ -11,6 +11,14 @@ namespace Frontend.Controllers
         // GET: EventController
         string apiUrl = "https://localhost:7121/api/EventTbs";
         HttpClient client=new HttpClient();
+        public async Task<ActionResult> eventhome()
+        {
+          
+            var a = await client.GetFromJsonAsync<List<EventTb>>($"{apiUrl}");
+            
+            return View(a);
+        }
+
         public async Task<ActionResult> Index()
         {
             var organizerid = HttpContext.Session.GetInt32("organizerid");
