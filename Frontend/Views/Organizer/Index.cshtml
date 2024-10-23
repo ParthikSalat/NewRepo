@@ -49,9 +49,9 @@
                 @Html.DisplayFor(modelItem => item.OrganizerPassword)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Edit", "Edit", new {  id=item.OrganizerId }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.OrganizerId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.OrganizerId })
             </td>
         </tr>
 }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text.Json.Serialization;
 
 namespace EventAPI.Models;
 
@@ -15,6 +14,6 @@ public partial class OrganizerTb
     public string? OrganizerMobileNo { get; set; }
 
     public string? OrganizerPassword { get; set; }
-    [JsonIgnore]
+
     public virtual ICollection<EventTb> EventTbs { get; set; } = new List<EventTb>();
 }

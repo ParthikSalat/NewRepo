@@ -38,9 +38,11 @@ namespace Frontend.Controllers
 
 
         // GET: OrganizerController/Details/5
-        public ActionResult Details(int id)
+        public async Task<ActionResult> Details(int id)
         {
-            return View();
+            var data = await client.GetFromJsonAsync<OrganizerTb>($"{apiUrl}{id}");
+            return View(data);
+
         }
 
         // GET: OrganizerController/Create
@@ -70,19 +72,26 @@ namespace Frontend.Controllers
         }
 
         // GET: OrganizerController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int id)
         {
-            return View();
+            var data = await client.GetFromJsonAsync<OrganizerTb>($"{apiUrl}{id}");
+            return View(data);
         }
 
         // POST: OrganizerController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> Edit(int id, OrganizerTb collection)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    await client.PutAsJsonAsync($"{apiUrl}{id}",collection);
+                    return RedirectToAction(nameof(Index));
+                }
+                return View();
+               
             }
             catch
             {
@@ -91,9 +100,10 @@ namespace Frontend.Controllers
         }
 
         // GET: OrganizerController/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
-            return View();
+            var data = await client.GetFromJsonAsync<OrganizerTb>($"{apiUrl}{id}");
+            return View(data);
         }
 
        
@@ -102,10 +112,11 @@ namespace Frontend.Controllers
         // POST: OrganizerController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<ActionResult> Delete(int id, OrganizerTb collection)
         {
             try
             {
+                var data = await client.DeleteAsync($"{apiUrl}{id}");
                 return RedirectToAction(nameof(Index));
             }
             catch

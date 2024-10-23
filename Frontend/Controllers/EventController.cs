@@ -9,7 +9,7 @@ namespace Frontend.Controllers
     public class EventController : Controller
     {
         // GET: EventController
-        string apiUrl = "https://localhost:7121/api/EventTbs";
+        string apiUrl = "https://localhost:7121/api/EventTbs/";
         HttpClient client=new HttpClient();
         public async Task<ActionResult> eventhome()
         {
@@ -34,9 +34,11 @@ namespace Frontend.Controllers
         }
 
         // GET: EventController/Details/5
-        public ActionResult Details(int id)
+        public async Task<ActionResult> Details(int id)
         {
-            return View();
+            var data = await client.GetFromJsonAsync<EventTb>($"{apiUrl}{id}");
+            return View(data);
+
         }
 
         // GET: EventController/Create
@@ -69,19 +71,26 @@ namespace Frontend.Controllers
         }
 
         // GET: EventController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int id)
         {
-            return View();
+            var data = await client.GetFromJsonAsync<EventTb>($"{apiUrl}{id}");
+            return View(data);
         }
 
         // POST: EventController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> Edit(int id, EventTb collection)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    await client.PutAsJsonAsync($"{apiUrl}{id}", collection);
+                    return RedirectToAction(nameof(Index));
+                }
+                return View();
+
             }
             catch
             {
@@ -90,18 +99,21 @@ namespace Frontend.Controllers
         }
 
         // GET: EventController/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
-            return View();
+            var data = await client.GetFromJsonAsync<EventTb>($"{apiUrl}{id}");
+            return View(data);
         }
 
         // POST: EventController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+    
+        public async Task<ActionResult> Delete(int id, EventTb collection)
         {
             try
             {
+                var data = await client.DeleteAsync($"{apiUrl}{id}");
                 return RedirectToAction(nameof(Index));
             }
             catch

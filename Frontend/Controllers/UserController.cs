@@ -53,7 +53,7 @@ namespace Frontend.Controllers
                 option.UserName == login_data.UserName &&
                 option.UserPassword == login_data.UserPassword); // Corrected this line
 
-            if (user != null)
+            if (user != null || !data.Any())
             {
                 HttpContext.Session.SetString("name",user.UserName);
 
