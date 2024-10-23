@@ -7,6 +7,7 @@ namespace Frontend.Controllers
 {
     public class UserController : Controller
     {
+
         // GET: UserController
         string apiUrl = "https://localhost:7121/api/UserTbs";
         HttpClient client=new HttpClient();
