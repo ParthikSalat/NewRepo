@@ -141,5 +141,15 @@ namespace Frontend.Controllers
                 return View();
             }
         }
+
+        public async Task<ActionResult> Logout()
+        {
+            HttpContext.Session.Clear(); // Clear the session
+
+            // Redirect to login page or any other page after logout
+            return RedirectToAction("eventhome", "event");
+        }
+
     }
+
 }
