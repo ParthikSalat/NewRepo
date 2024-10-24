@@ -3,48 +3,10 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - EventSite</title>
+    <title>@ViewData["Title"] - Frontend</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Frontend.styles.css" asp-append-version="true" />
-    <style>
-        /* Body Background and Text Color */
-        body {
-            background-color: #121212; /* Light black background */
-            color: #f8f9fa; /* Light text color for better contrast */
-        }
-
-        /* Header and Navbar Styles */
-        .bg-light {
-            background-color: rgba(255, 255, 255, 0.8) !important; /* Slightly transparent light background for header */
-        }
-
-        .navbar-brand {
-            font-weight: bold;
-            color: #007bff; /* Primary color for navbar brand */
-        }
-
-        .navbar-nav .nav-link {
-            color: #007bff; /* Primary color for nav links */
-        }
-
-            .navbar-nav .nav-link:hover {
-                color: #0056b3; /* Darker shade on hover */
-            }
-
-        /* Footer Styles */
-        .bg-dark {
-            background-color: #343a40 !important; /* Dark footer background */
-        }
-
-        .footer-links a {
-            color: #ffffff !important; /* White color for footer links */
-        }
-
-            .footer-links a:hover {
-                text-decoration: underline;
-            }
-    </style>
 </head>
 <body>
     <!-- Simple Header -->
@@ -69,9 +31,6 @@
                         <li class="nav-item">
                             <a class="nav-link" href="@Url.Action("Login", "Organizer")">Organizer</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="@Url.Action("logout", "event")">Logout</a>
-                        </li>
                     </ul>
                 </div>
             </nav>
@@ -87,10 +46,10 @@
 
     <!-- Simple Footer -->
     <footer class="bg-dark text-white py-4 mt-4">
-        <div class="container text-center footer-links">
+        <div class="container text-center">
             <p>&copy; 2024 EventSite. All rights reserved.</p>
             <p>
-                <a href="@Url.Action("Privacy", "Home")" class="text-white">Privacy Policy</a> |
+                <a href="@Url.Action("Privacy", "Home")" class="text-white">Privacy Policy</a> | 
                 <a href="@Url.Action("Contact", "Home")" class="text-white">Contact Us</a>
             </p>
         </div>

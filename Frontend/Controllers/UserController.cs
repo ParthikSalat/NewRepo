@@ -10,27 +10,28 @@ namespace Frontend.Controllers
 
         // GET: UserController
         string apiUrl = "https://localhost:7121/api/UserTbs";
-        HttpClient client = new HttpClient();
+        HttpClient client=new HttpClient();
         public async Task<ActionResult> Index()
         {
-
+            // Check if session is set
             var userName = HttpContext.Session.GetString("name");
             if (userName != null)
             {
                 try
                 {
-
+                    // Fetch data from the API
                     var users = await client.GetFromJsonAsync<List<UserTb>>($"{apiUrl}");
-                    return View(users);
+                    return View(users); // Pass the fetched data to the view
                 }
                 catch (Exception ex)
                 {
-
+                    // Log the exception and return an error view/message if needed
+                    // You can use a logging library or display an error message
                     return View("Error");
                 }
             }
 
-
+            // Redirect to login or return a message
             return RedirectToAction("Login");
         }
 
@@ -45,26 +46,26 @@ namespace Frontend.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(UserTb login_data)
         {
-
+            // Fetch the list of users from the API
             var data = await client.GetFromJsonAsync<List<UserTb>>($"{apiUrl}");
 
-
+            // Find the user that matches the provided username and password
             var user = data.FirstOrDefault(option =>
                 option.UserName == login_data.UserName &&
-                option.UserPassword == login_data.UserPassword);
+                option.UserPassword == login_data.UserPassword); // Corrected this line
 
             if (user != null || !data.Any())
             {
-                HttpContext.Session.SetString("name", user.UserName);
+                HttpContext.Session.SetString("name",user.UserName);
 
-                return RedirectToAction("eventhome","event");
+                return RedirectToAction("Index"); // Redirect to the Index action on successful login
             }
             else
             {
-                ViewBag.Error = "Invalid Username or Password";
+                ViewBag.Error = "Invalid Username or Password"; // Set error message
             }
 
-            return View();
+            return View(); // Return the view, showing the error
         }
 
         // GET: UserController/Details/5
@@ -86,7 +87,7 @@ namespace Frontend.Controllers
         {
             try
             {
-                if (ModelState.IsValid)
+                if(ModelState.IsValid)
                 {
                     await client.PostAsJsonAsync($"{apiUrl}", data);
                     return RedirectToAction(nameof(Login));
@@ -139,14 +140,6 @@ namespace Frontend.Controllers
             {
                 return View();
             }
-        }
-
-        public async Task<ActionResult> logout()
-        {
-
-            HttpContext.Session.Clear();
-            return RedirectToAction("eventhome", "event");
-
         }
     }
 }
