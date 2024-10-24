@@ -11,13 +11,26 @@ namespace Frontend.Controllers
         // GET: EventController
         string apiUrl = "https://localhost:7121/api/EventTbs/";
         HttpClient client=new HttpClient();
-        public async Task<ActionResult> eventhome()
+        public async Task<ActionResult> eventhome(string searchTerm)
         {
-          
-            var a = await client.GetFromJsonAsync<List<EventTb>>($"{apiUrl}");
-            
-            return View(a);
+            // Fetch the list of events from the API
+            var events = await client.GetFromJsonAsync<List<EventTb>>($"{apiUrl}");
+
+            // If searchTerm is not null or empty, filter the list
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                events = events
+                    .Where(e => e.EventName.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
+                                e.EventArtist.Contains(searchTerm, StringComparison.OrdinalIgnoreCase))
+                    .ToList();
+            }
+
+            // Pass the search term to the view
+            ViewBag.SearchTerm = searchTerm;
+
+            return View(events);
         }
+
 
         public async Task<ActionResult> Index()
         {
