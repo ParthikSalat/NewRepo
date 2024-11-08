@@ -8,11 +8,14 @@ namespace Frontend.Controllers
 {
     public class EventController : Controller
     {
+
         // GET: EventController
         string apiUrl = "https://localhost:7121/api/EventTbs/";
         HttpClient client=new HttpClient();
         public async Task<ActionResult> eventhome(string searchTerm)
         {
+           ViewBag.data = HttpContext.Session.GetString("name");
+            
             // Fetch the list of events from the API
             var events = await client.GetFromJsonAsync<List<EventTb>>($"{apiUrl}");
 
@@ -34,11 +37,14 @@ namespace Frontend.Controllers
         public async Task<ActionResult> Index()
         {
             var organizerid = HttpContext.Session.GetInt32("organizerid");
+            var email=HttpContext.Session.GetString("email");   
             if(organizerid==null)
             {
                 return RedirectToAction("login", "Organizer");
 
             }
+            ViewBag.organizerid = organizerid;
+            ViewBag.email = email;
             var a = await client.GetFromJsonAsync<List<EventTb>>($"{apiUrl}");
             var data=a.Where(o=>o.OrganizerId==organizerid).ToList();
 
@@ -64,6 +70,10 @@ namespace Frontend.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(EventTb data)
         {
+            var organizerid = HttpContext.Session.GetInt32("organizerid");
+            var email = HttpContext.Session.GetString("email");
+            ViewBag.organizerid = organizerid;
+            ViewBag.email = email;
             try
             {
                 if (ModelState.IsValid)

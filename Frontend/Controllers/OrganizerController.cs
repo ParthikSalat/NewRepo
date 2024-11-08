@@ -6,7 +6,7 @@ namespace Frontend.Controllers
 {
     public class OrganizerController : Controller
     {
-        string apiUrl = "https://localhost:7121/api/OrganizerTbs";
+        string apiUrl = "https://localhost:7121/api/OrganizerTbs/";
         HttpClient client=new HttpClient();
         // GET: OrganizerController
 
@@ -15,26 +15,42 @@ namespace Frontend.Controllers
             var a = await client.GetFromJsonAsync<List<OrganizerTb>>($"{apiUrl}");
             return View(a);
         }
-
-
-        public async Task<ActionResult> login(OrganizerTb model)
+        // GET: OrganizerController/Login
+        public ActionResult Login()
         {
-            var data = await client.GetFromJsonAsync<List<OrganizerTb>>($"{apiUrl}");
-            var a = data.FirstOrDefault(o => o.OrganizerEmail == model.OrganizerEmail && o.OrganizerPassword == model.OrganizerPassword);
-            if (a != null)
+            return View();
+        }
+
+        // POST: OrganizerController/Login
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> LoginPost(OrganizerTb model)
+        {
+            if (!ModelState.IsValid)
             {
-                HttpContext.Session.SetString("email",a.OrganizerEmail);
-                HttpContext.Session.SetInt32("organizerid", a.OrganizerId);
+                return View("Login", model);  // Return with validation errors
+            }
 
-                return RedirectToAction("Index","Event");
+            var data = await client.GetFromJsonAsync<List<OrganizerTb>>($"{apiUrl}");
+            var organizer = data.FirstOrDefault(o => o.OrganizerEmail == model.OrganizerEmail && o.OrganizerPassword == model.OrganizerPassword);
+          
+            if (organizer != null)
+            {
+                // Store session data
+                HttpContext.Session.SetString("email", organizer.OrganizerEmail);
+                HttpContext.Session.SetInt32("organizerid", organizer.OrganizerId);
 
+                // Redirect to Index action in Event controller
+                return RedirectToAction("Index", "Event");
             }
             else
             {
-                ViewBag.Error = "Invalid email or password";
+                ViewBag.Error = "Invalid email or password";  // Show error if login fails
             }
+
             return View();
         }
+
 
 
         // GET: OrganizerController/Details/5
@@ -61,7 +77,8 @@ namespace Frontend.Controllers
                 if (ModelState.IsValid)
                 {
                     await client.PostAsJsonAsync($"{apiUrl}", data);
-                    return RedirectToAction(nameof(login));
+                    String username = HttpContext.Session.GetString("name");
+                    return RedirectToAction(nameof(Login));
                 }
                 else { return View(); }
             }
@@ -75,6 +92,7 @@ namespace Frontend.Controllers
         public async Task<ActionResult> Edit(int id)
         {
             var data = await client.GetFromJsonAsync<OrganizerTb>($"{apiUrl}{id}");
+            String username = HttpContext.Session.GetString("name");
             return View(data);
         }
 

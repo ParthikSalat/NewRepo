@@ -7,13 +7,52 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Frontend.styles.css" asp-append-version="true" />
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
+    <style>
+        /* Navbar styles */
+        .navbar-light .navbar-nav .nav-link {
+            color: black !important;
+        }
+
+        .navbar-light .navbar-brand {
+            color: black !important;
+        }
+
+        .dropdown-menu {
+            background-color: #007bff; /* Same blue color */
+        }
+
+            .dropdown-menu .dropdown-item {
+                color: #ffffff;
+            }
+
+                .dropdown-menu .dropdown-item:hover {
+                    background-color: #0056b3; /* Darker blue for hover */
+                    color: #ffffff;
+                }
+
+        /* Adjust the dropdown icon and username text alignment */
+        .dropdown-toggle {
+            display: flex;
+            align-items: center;
+        }
+
+            .dropdown-toggle div {
+                margin-right: 10px;
+            }
+
+            .dropdown-toggle i {
+                margin-right: 0;
+            }
+    </style>
 </head>
 <body>
     <!-- Simple Header -->
     <header class="bg-light py-3">
         <div class="container">
             <nav class="navbar navbar-expand-sm navbar-light">
-                <a class="navbar-brand" href="@Url.Action("Index", "Home")">EventSite</a>
+                <a class="navbar-brand" href="@Url.Action("eventhome", "Event")">EventSite</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -25,16 +64,61 @@
                         <li class="nav-item">
                             <a class="nav-link" href="@Url.Action("Privacy", "Home")">Privacy</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="@Url.Action("Login", "User")">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="@Url.Action("Login", "Organizer")">Organizer</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="@Url.Action("Logout", "Event")">Logout</a>
-                        </li>
 
+                        <!-- Check if user is logged in -->
+                        @if (ViewBag.data != null)
+                        {
+                           
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-white" href="#" id="loginDropdown" role="button" data-bs-toggle="dropdown">
+                                    <div>
+                                        @ViewBag.data  <!-- Show logged-in user's name -->
+                                    </div>
+                                    <i class="fas fa-bars"></i>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="loginDropdown">
+                                    <!-- User is logged in, show logout option -->
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="@Url.Action("Logout", "Event")">
+                                            <i class="fas fa-sign-out-alt"></i> Logout
+                                        </a>
+                                    </li>
+                                    <li><a class="dropdown-item" href="@Url.Action("Login", "Agency")"><i class="fas fa-briefcase"></i> Agency Travel</a></li>
+                                    <li><a class="dropdown-item" href="@Url.Action("Login", "Hotel")"><i class="fas fa-hotel"></i> Hotel Login</a></li>
+                                </ul>
+
+                            </li>
+                        }
+                        else if (ViewBag.email != null)
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-white" href="#" id="loginDropdown" role="button" data-bs-toggle="dropdown">
+                                    <div>
+                                        @ViewBag.email  <!-- Show logged-in user's name -->
+                                    </div>
+                                    <i class="fas fa-bars"></i>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="loginDropdown">
+                                    <!-- User is logged in, show logout option -->
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="@Url.Action("Logout", "Event")">
+                                            <i class="fas fa-sign-out-alt"></i> Logout
+                                        </a>
+                                    </li>
+                                    <li><a class="dropdown-item" href="@Url.Action("Login", "Agency")"><i class="fas fa-briefcase"></i> Agency Travel</a></li>
+                                    <li><a class="dropdown-item" href="@Url.Action("Login", "Hotel")"><i class="fas fa-hotel"></i> Hotel Login</a></li>
+                                </ul>
+
+                            </li>
+                        }
+                        else
+                        {
+                            <!-- User is not logged in, show login options -->
+                            <li class="nav-item">
+                                <a class="nav-link" href="@Url.Action("Login", "User")">Login</a>
+                            </li>
+                         
+                        }
                     </ul>
                 </div>
             </nav>
@@ -53,7 +137,7 @@
         <div class="container text-center">
             <p>&copy; 2024 EventSite. All rights reserved.</p>
             <p>
-                <a href="@Url.Action("Privacy", "Home")" class="text-white">Privacy Policy</a> | 
+                <a href="@Url.Action("Privacy", "Home")" class="text-white">Privacy Policy</a> |
                 <a href="@Url.Action("Contact", "Home")" class="text-white">Contact Us</a>
             </p>
         </div>

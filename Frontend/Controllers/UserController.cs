@@ -54,11 +54,10 @@ namespace Frontend.Controllers
                 option.UserName == login_data.UserName &&
                 option.UserPassword == login_data.UserPassword); // Corrected this line
 
-            if (user != null || !data.Any())
+            if (user != null) // Only proceed if user is found
             {
-                HttpContext.Session.SetString("name",user.UserName);
-
-                return RedirectToAction("Index"); // Redirect to the Index action on successful login
+                HttpContext.Session.SetString("name", user.UserName);
+                return RedirectToAction("eventhome", "Event"); // Redirect to the Index action on successful login
             }
             else
             {
