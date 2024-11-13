@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 
 namespace EventAPI.Models;
@@ -14,23 +15,21 @@ public partial class EventDbContext : DbContext
         : base(options)
     {
     }
-
-    public virtual DbSet<AdminTb> AdminTbs { get; set; }
-
+  
     public virtual DbSet<BookingHistoryTb> BookingHistoryTbs { get; set; }
-
+   
     public virtual DbSet<BookingRefundTb> BookingRefundTbs { get; set; }
-
+   
     public virtual DbSet<BookingTb> BookingTbs { get; set; }
-
+   
     public virtual DbSet<EventTb> EventTbs { get; set; }
-
+   
     public virtual DbSet<OrganizerTb> OrganizerTbs { get; set; }
-
+   
     public virtual DbSet<PaymentTb> PaymentTbs { get; set; }
-
+  
     public virtual DbSet<TicketTb> TicketTbs { get; set; }
-
+  
     public virtual DbSet<UserTb> UserTbs { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -39,21 +38,6 @@ public partial class EventDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<AdminTb>(entity =>
-        {
-            entity.HasKey(e => e.AdminId);
-
-            entity.ToTable("AdminTB");
-
-            entity.Property(e => e.AdminId).ValueGeneratedNever();
-            entity.Property(e => e.AdminEmail)
-                .HasMaxLength(50)
-                .IsUnicode(false);
-            entity.Property(e => e.AdminPassword)
-                .HasMaxLength(50)
-                .IsUnicode(false);
-        });
-
         modelBuilder.Entity<BookingHistoryTb>(entity =>
         {
             entity.HasKey(e => e.BookingHistoryId);
