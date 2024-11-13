@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using EventAPI.Models;
+using System.IO;
+using Microsoft.Extensions.FileProviders; // Add this to Program.cs for serving static files
+
 
 namespace EventAPI.Controllers
 {
@@ -72,16 +75,40 @@ namespace EventAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/EventTbs
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<EventTb>> PostEventTb(EventTb eventTb)
+        public async Task<ActionResult<EventTb>> PostEventTb([FromForm] EventTb eventTb, IFormFile eventImage)
         {
+            if (eventImage != null)
+            {
+                // Ensure the "Uploads" directory exists
+                var uploadDirectory = Path.Combine(Directory.GetCurrentDirectory(), "Uploads");
+                if (!Directory.Exists(uploadDirectory))
+                {
+                    Directory.CreateDirectory(uploadDirectory);
+                }
+
+                // Create a unique filename for the image
+                var fileName = Guid.NewGuid().ToString() + Path.GetExtension(eventImage.FileName);
+                var filePath = Path.Combine(uploadDirectory, fileName);
+
+                // Save the file to the server
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await eventImage.CopyToAsync(stream);
+                }
+
+                // Store only the filename in the EventImage property
+                eventTb.EventImage = fileName;
+            }
+
+            // Add the event to the database and save changes
             _context.EventTbs.Add(eventTb);
             await _context.SaveChangesAsync();
 
+            // Return the created event with the proper URL for accessing it
             return CreatedAtAction("GetEventTb", new { id = eventTb.EventId }, eventTb);
         }
+
 
         // DELETE: api/EventTbs/5
         [HttpDelete("{id}")]
