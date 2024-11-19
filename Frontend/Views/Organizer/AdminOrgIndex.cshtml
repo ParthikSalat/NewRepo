@@ -178,7 +178,7 @@
                 <a class="nav-link" href="/organizer/adminorgindex">Organizer Details</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/event/index">Events Details</a>
+                <a class="nav-link" href="/event/Admineventindex">Events Details</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/admin/settings">Settings</a>
@@ -215,9 +215,9 @@
                         <td>@Html.DisplayFor(modelItem => item.OrganizerMobileNo)</td>
                         <td>@Html.DisplayFor(modelItem => item.OrganizerPassword)</td>
                         <td>
-                            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }, new { @class = "btn-edit" }) |
-                            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }, new { @class = "btn-details" }) |
-                            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ }, new { @class = "btn-delete" })
+                            @Html.ActionLink("Edit", "Edit", new {  id=item.OrganizerId }, new { @class = "btn-edit" }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.OrganizerId }, new { @class = "btn-details" }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.OrganizerId }, new { @class = "btn-delete" })
                         </td>
                     </tr>
                 }
