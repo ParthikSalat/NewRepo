@@ -32,6 +32,17 @@ namespace EventAPI.Controllers
             return CreatedAtAction("GetBooking", new { Id = booking.BookingId }, booking);
         }
 
+        [HttpGet("{id}")]
+
+        public async Task<ActionResult<BookingTb>> GetBooking(int id)
+        {
+            var booking = await _context.BookingTbs.FindAsync(id);
+            if (booking == null)
+            {
+                return NotFound();
+            }
+            return booking;
+        }
 
       
     }

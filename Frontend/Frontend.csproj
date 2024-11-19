@@ -7,6 +7,22 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\images\10.jpg" />
+    <Content Remove="wwwroot\images\11.jpg" />
+    <Content Remove="wwwroot\images\12.jpg" />
+    <Content Remove="wwwroot\images\13.jpg" />
+    <Content Remove="wwwroot\images\14.jpg" />
+    <Content Remove="wwwroot\images\1c0c0e77-54f0-4f00-ac15-b038b6b78a9b.jpg" />
+    <Content Remove="wwwroot\images\5609af0e-0355-4bd5-8fd5-606711d992df.jpeg" />
+    <Content Remove="wwwroot\images\6.jpeg" />
+    <Content Remove="wwwroot\images\7.jpeg" />
+    <Content Remove="wwwroot\images\8.jpg" />
+    <Content Remove="wwwroot\images\80c8046c-2f89-4ba0-abef-a46b5086342c.jpg" />
+    <Content Remove="wwwroot\images\9.jpg" />
+    <Content Remove="wwwroot\images\a064a901-7ee0-4fed-910c-7f81366d8cd6.jpeg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.QuickGrid.EntityFrameworkAdapter" Version="8.0.10" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.10" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.7" />
@@ -14,6 +30,45 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\images\Events\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\images\10.jpg" />
+    <None Include="wwwroot\images\11.jpg" />
+    <None Include="wwwroot\images\12.jpg" />
+    <None Include="wwwroot\images\13.jpg" />
+    <None Include="wwwroot\images\14.jpg" />
+    <None Include="wwwroot\images\1c0c0e77-54f0-4f00-ac15-b038b6b78a9b.jpg" />
+    <None Include="wwwroot\images\5609af0e-0355-4bd5-8fd5-606711d992df.jpeg" />
+    <None Include="wwwroot\images\6.jpeg" />
+    <None Include="wwwroot\images\7.jpeg" />
+    <None Include="wwwroot\images\8.jpg" />
+    <None Include="wwwroot\images\80c8046c-2f89-4ba0-abef-a46b5086342c.jpg" />
+    <None Include="wwwroot\images\9.jpg" />
+    <None Include="wwwroot\images\a064a901-7ee0-4fed-910c-7f81366d8cd6.jpeg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot\images\1.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\images\1.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\images\2.jpeg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\images\3.jpeg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\images\4.jpeg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>
