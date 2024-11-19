@@ -20,21 +20,21 @@ namespace EventAPI.Controllers
             _context = context;
         }
         //login
-        [HttpPost("login")]
-        public async Task<IActionResult> login(string name, string password)
-        {
-            var a = await _context.UserTbs
-                .FirstOrDefaultAsync(o => o.UserName == name && o.UserPassword == password);
-
-            if (a == null)
+            [HttpPost("login")]
+            public async Task<IActionResult> login(string email, string password)
             {
-                return NotFound();
+                var a = await _context.UserTbs
+                    .FirstOrDefaultAsync(o => o.UserEmail == email && o.UserPassword == password);
+
+                if (a == null)
+                {
+                    return NotFound();
+                }
+
+
+
+                return Ok(a);
             }
-
-
-
-            return Ok(a);
-        }
 
         // GET: api/UserTbs
         [HttpGet]
