@@ -1,0 +1,117 @@
+﻿@model IEnumerable<EventAPI.Models.AdminTb>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewData["Title"] - Your App</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+    <style>
+        /* Sidebar styling */
+        .sidebar {
+            width: 250px;
+            background-color: #f8f9fa;
+            padding-top: 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh; /* Full viewport height */
+            border-right: 1px solid #ddd;
+            overflow-y: auto; /* Allows scrolling if content overflows */
+        }
+
+        /* Main content styling */
+        .content {
+            margin-left: 270px; /* Leave space for the sidebar */
+            padding: 20px;
+        }
+
+        /* Sidebar links styling */
+        .sidebar .nav-link {
+            color: #333;
+        }
+
+            .sidebar .nav-link:hover {
+                background-color: #ddd;
+                color: #000;
+            }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h4 class="text-center">Admin Panel</h4>
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link" href="/admin">Dashboard</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/user/adminuserindex">User Details</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/organizer/">Organizer Details</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/event/AdminIndex">Event Details</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/admin/settings">Settings</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="content">
+        <h1>Admin Index</h1>
+
+        <p>
+            <a asp-action="Create" class="btn btn-primary">Create New</a>
+        </p>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.AdminId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.AdminEmail)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.AdminPassword)
+                    </th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AdminId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AdminEmail)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AdminPassword)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.AdminId }, new { @class = "btn btn-sm btn-warning" }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.AdminId }, new { @class = "btn btn-sm btn-info" }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.AdminId }, new { @class = "btn btn-sm btn-danger" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

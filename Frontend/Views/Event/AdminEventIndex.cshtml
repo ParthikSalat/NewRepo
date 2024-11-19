@@ -1,0 +1,113 @@
+﻿@model IEnumerable<EventAPI.Models.EventTb>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Events</h1>
+
+<p>
+    <a class="btn btn-primary" asp-action="Create">Create New</a>
+</p>
+
+<div class="card-container">
+    @foreach (var item in Model)
+    {
+        <div class="card">
+            <div class="card-image">
+                <img src="@Url.Content("~/images/" + item.EventImage)" alt="Event Image" />
+            </div>
+            <div class="card-content">
+                <h2>@Html.DisplayFor(modelItem => item.EventName)</h2>
+                <p><strong>Type:</strong> @Html.DisplayFor(modelItem => item.EventType)</p>
+                <p><strong>Artist:</strong> @Html.DisplayFor(modelItem => item.EventArtist)</p>
+                <p><strong>Theme:</strong> @Html.DisplayFor(modelItem => item.EventThem)</p>
+                <p><strong>Ticket Price:</strong> @Html.DisplayFor(modelItem => item.EventTicketPrice)</p>
+                <p><strong>Date:</strong> @Html.DisplayFor(modelItem => item.EventDate)</p>
+                <p><strong>More Details:</strong> @Html.DisplayFor(modelItem => item.EventMoreDetails)</p>
+            </div>
+            <div class="card-actions">
+                <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.EventId">Edit</a>
+                <a class="btn btn-info" asp-action="Details" asp-route-id="@item.EventId">Details</a>
+                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.EventId">Delete</a>
+            </div>
+        </div>
+    }
+</div>
+
+<!-- Styles -->
+<style>
+    .card-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 20px;
+        margin: 20px 0;
+    }
+
+    .card {
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        transition: transform 0.2s;
+    }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+    .card-image img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+    }
+
+    .card-content {
+        padding: 15px;
+    }
+
+        .card-content h2 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .card-content p {
+            margin: 5px 0;
+            color: #555;
+        }
+
+    .card-actions {
+        padding: 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #f8f8f8;
+    }
+
+        .card-actions .btn {
+            padding: 10px 20px;
+            font-size: 14px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.2s;
+        }
+
+        .card-actions .btn-primary {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .card-actions .btn-info {
+            background-color: #17a2b8;
+            color: #fff;
+        }
+
+        .card-actions .btn-danger {
+            background-color: #dc3545;
+            color: #fff;
+        }
+
+        .card-actions .btn:hover {
+            background-color: #0056b3; /* Darker color on hover */
+        }
+</style>

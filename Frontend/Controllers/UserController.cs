@@ -35,6 +35,11 @@ namespace Frontend.Controllers
             return RedirectToAction("Login");
         }
 
+        public async Task<ActionResult> AdminUserIndex()
+        {
+            var data = await client.GetFromJsonAsync<List<UserTb>>($"{apiUrl}");
+            return View(data);
+        }
 
         // GET: Login
         [HttpGet]

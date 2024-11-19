@@ -34,6 +34,12 @@ namespace Frontend.Controllers
             return View(events);
         }
 
+        public async Task<ActionResult> AdminEventIndex()
+        {
+            var events = await client.GetFromJsonAsync<List<EventTb>>($"{apiUrl}");
+            return View(events);
+        }
+
         public async Task<ActionResult> Index()
         {
             var organizerid = HttpContext.Session.GetInt32("organizerid");

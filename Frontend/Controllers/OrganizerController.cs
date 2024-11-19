@@ -10,6 +10,11 @@ namespace Frontend.Controllers
         HttpClient client=new HttpClient();
         // GET: OrganizerController
 
+        public async Task<ActionResult> AdminOrgIndex()
+        {
+            var o = await client.GetFromJsonAsync<List<OrganizerTb>>($"{apiUrl}");
+            return View(o);
+        }
         public async Task<ActionResult> Index()
         {
             var a = await client.GetFromJsonAsync<List<OrganizerTb>>($"{apiUrl}");

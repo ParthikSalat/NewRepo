@@ -1,0 +1,227 @@
+﻿@model IEnumerable<EventAPI.Models.UserTb>
+
+@{
+    ViewData["Title"] = "AdminUserIndex";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<body>
+    <style>
+        /* Sidebar Styling */
+        .sidebar {
+            width: 250px;
+            background-color: #f8f9fa;
+            padding-top: 20px;
+            position: fixed;
+            top: 0;
+            left: -250px; /* Initially hidden */
+            height: 100vh;
+            border-right: 1px solid #ddd;
+            overflow-y: auto;
+            transition: left 0.3s; /* Smooth transition for sliding */
+        }
+
+            .sidebar.active {
+                left: 0;
+            }
+
+        /* Black button styling */
+        .navbar-toggler {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            z-index: 1050;
+            background-color: black;
+            border: none;
+            padding: 8px 10px;
+        }
+
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3E%3Cpath stroke='white' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+        }
+
+        /* General Page Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f7f7f7;
+            color: #333;
+            margin-left: 0; /* Default when sidebar is hidden */
+            transition: margin-left 0.3s;
+        }
+
+        .content {
+            margin-left: 20px; /* Adjust content margin */
+            padding: 20px; /* Add padding for spacing */
+            transition: margin-left 0.3s;
+        }
+
+            .content.active {
+                margin-left: 270px; /* Adjusted when sidebar is toggled */
+            }
+
+        h1 {
+            font-size: 30px;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* Styling for the table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #3498db;
+            color: black;
+            font-weight: bold;
+        }
+
+        td {
+            background-color: #f9f9f9;
+            color: #555;
+        }
+
+        tr:nth-child(even) td {
+            background-color: #f1f1f1;
+        }
+
+        tr:hover {
+            background-color: #e9f5ff;
+        }
+
+        /* Styling for the action links */
+        td a {
+            padding: 8px 16px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 5px;
+            display: inline-block;
+            text-align: center;
+            transition: background-color 0.3s ease;
+        }
+
+        /* Create New Button */
+        .btn-create-new {
+            display: inline-block;
+            padding: 12px 20px;
+            background-color: #8e44ad;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+            transition: background-color 0.3s ease;
+        }
+
+            .btn-create-new:hover {
+                background-color: #732d91;
+            }
+    </style>
+
+    <!-- Black three-line button to toggle sidebar -->
+    <button class="navbar-toggler" type="button" aria-label="Toggle sidebar" onclick="toggleSidebar()">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar"><br /><br />
+        <h4>Admin Panel</h4>
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link" href="/admin">Dashboard</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/user/AdminUserIndex">User Details</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/organizer/adminorgindex">Organizer Details</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/event/index">Events Details</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/admin/settings">Settings</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content">
+        <h1>@ViewData["Title"]</h1>
+
+        <p>
+            <a class="btn-create-new" asp-action="Create">Create New</a>
+        </p>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.UserId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.UserName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.UserEmail)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.UserPassword)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserEmail)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserPassword)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <script>
+        // Toggle sidebar visibility function
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('active');
+            document.querySelector('.content').classList.toggle('active');
+        }
+    </script>
+</body>

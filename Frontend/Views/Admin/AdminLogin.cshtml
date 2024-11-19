@@ -1,0 +1,93 @@
+﻿@model EventAPI.Models.AdminTb
+
+@{
+    ViewData["Title"] = "AdminLogin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+
+    .form-container {
+        width: 100%;
+        max-width: 400px;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin: auto;
+    }
+
+    .form-group label {
+        color: #555;
+        font-weight: bold;
+        margin-bottom: 5px;
+        display: block;
+    }
+
+    .form-group input {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 1rem;
+        box-sizing: border-box;
+    }
+
+        .form-group input:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+    .btn-primary {
+        background-color: #007bff;
+        color: #fff;
+        padding: 10px;
+        border: none;
+        border-radius: 4px;
+        width: 100%;
+        cursor: pointer;
+        font-size: 1rem;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+    .text-danger {
+        color: #dc3545;
+        font-size: 0.9rem;
+        margin-top: -10px;
+    }
+
+</style>
+
+<h1>AdminLogin</h1>
+
+<h4>AdminTb</h4>
+<hr />
+<div class="form-container">
+    <form asp-action="AdminLogin">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="AdminEmail" class="control-label"></label>
+            <input asp-for="AdminEmail" class="form-control" />
+            <span asp-validation-for="AdminEmail" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="AdminPassword" class="control-label"></label>
+            <input asp-for="AdminPassword" class="form-control" type="password" />
+            <span asp-validation-for="AdminPassword" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Login" class="btn btn-primary" />
+        </div>
+    </form>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
