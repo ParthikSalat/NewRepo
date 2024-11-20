@@ -1,98 +1,196 @@
-﻿@{
-    ViewData["Title"] = "Admin Dashboard";
-}
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
-@{
-    ViewData["Title"] = "Admin Dashboard";
-}
+    <style>
+        /* General Styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
 
-<div class="container-fluid">
-    <h1 class="my-4">Admin Dashboard</h1>
+        .sidebar {
+            width: 250px;
+            background-color: #343a40;
+            color: #fff;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            overflow-y: auto;
+            padding-top: 20px;
+        }
 
-    <div class="row">
-        <div class="col-md-3">
-            <div class="card text-white bg-primary mb-3">
-                <div class="card-body">
-                    <h5 class="card-title">Total Users</h5>
-                    <p class="card-text">@ViewBag.TotalUsers</p> <!-- This should display the number -->
+            .sidebar h4 {
+                text-align: center;
+                padding-bottom: 20px;
+            }
+
+            .sidebar .nav-link {
+                color: #adb5bd;
+                margin-bottom: 10px;
+                font-size: 16px;
+            }
+
+                .sidebar .nav-link:hover {
+                    color: #fff;
+                    background-color: #495057;
+                    border-radius: 5px;
+                }
+
+        .content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+
+        .card {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border: none;
+            border-radius: 10px;
+        }
+
+            .card h5 {
+                font-size: 18px;
+                font-weight: bold;
+            }
+
+            .card h3 {
+                font-size: 30px;
+            }
+
+        /* Chart Container */
+        .chart-container {
+            margin-top: 30px;
+        }
+
+            .chart-container canvas {
+                max-width: 100%;
+                height: 400px;
+            }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h4>Admin Panel</h4>
+        <ul class="nav flex-column">
+            <li class="nav-item"><a class="nav-link" href="#">Dashboard</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Users</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Organizers</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Events</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content">
+        <h1>Admin Dashboard</h1>
+
+        <!-- Summary Cards -->
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card text-white bg-primary mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Total Users</h5>
+                        <h3>1,200</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-white bg-success mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Total Organizers</h5>
+                        <h3>150</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-white bg-info mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Total Events</h5>
+                        <h3>450</h3>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="col-md-3">
-            <div class="card text-white bg-success mb-3">
-                <div class="card-body">
-                    <h5 class="card-title">Total Organizers</h5>
-                    <p class="card-text">@ViewBag.TotalOrganizers</p> <!-- This should display the number -->
+        <!-- Charts -->
+        <div class="row chart-container">
+            <!-- Earnings Chart -->
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Monthly Earnings</h5>
+                        <canvas id="earningsChart"></canvas>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="col-md-3">
-            <div class="card text-white bg-info mb-3">
-                <div class="card-body">
-                    <h5 class="card-title">Total Events</h5>
-                    <p class="card-text">@ViewBag.TotalEvents</p> <!-- This should display the number -->
+            <!-- User Distribution Chart -->
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">User Distribution</h5>
+                        <canvas id="userChart"></canvas>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
+    <script>
+        // Monthly Earnings Chart
+        const earningsCtx = document.getElementById('earningsChart').getContext('2d');
+        const earningsChart = new Chart(earningsCtx, {
+            type: 'line',
+            data: {
+                labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+                datasets: [{
+                    label: 'Earnings',
+                    data: [100, 200, 300, 400, 500, 600],
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 2,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    }
+                }
+            }
+        });
 
-    <!-- Chart Row -->
-    <div class="row">
-        <div class="col-md-6">
-            <canvas id="monthlyEarningsChart"></canvas>
-        </div>
-        <div class="col-md-6">
-            <canvas id="visitSeparationChart"></canvas>
-        </div>
-    </div>
-</div>
-
-<!-- Chart.js Script -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-    // Monthly Earnings Chart
-    const monthlyEarningsData = @Html.Raw(Json.Serialize(ViewBag.MonthlyEarnings));
-    const monthlyEarningsCtx = document.getElementById('monthlyEarningsChart').getContext('2d');
-    new Chart(monthlyEarningsCtx, {
-        type: 'line',
-        data: {
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
-            datasets: [{
-                label: 'Monthly Earnings',
-                data: monthlyEarningsData,
-                borderColor: '#007bff',
-                fill: true,
-                backgroundColor: 'rgba(0, 123, 255, 0.2)',
-            }]
-        }
-    });
-
-    // Visit Separation Chart
-    const visitSeparationData = @Html.Raw(Json.Serialize(ViewBag.VisitSeparation));
-    const visitSeparationCtx = document.getElementById('visitSeparationChart').getContext('2d');
-    new Chart(visitSeparationCtx, {
-        type: 'doughnut',
-        data: {
-            labels: ['Mobile', 'Tablet', 'Desktop', 'Other'],
-            datasets: [{
-                data: Object.values(visitSeparationData),
-                backgroundColor: ['#007bff', '#28a745', '#ffc107', '#dc3545']
-            }]
-        }
-    });
-</script>
-
-<!-- Styles -->
-<style>
-    .card {
-        text-align: center;
-    }
-
-    canvas {
-        max-height: 300px;
-    }
-</style>
+        // User Distribution Chart
+        const userCtx = document.getElementById('userChart').getContext('2d');
+        const userChart = new Chart(userCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Mobile', 'Tablet', 'Desktop', 'Others'],
+                datasets: [{
+                    data: [40, 30, 20, 10],
+                    backgroundColor: ['#3498db', '#2ecc71', '#e74c3c', '#f1c40f'],
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

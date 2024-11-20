@@ -9,7 +9,7 @@ namespace Frontend.Controllers
     {
 
         // GET: UserController
-        string apiUrl = "https://localhost:7121/api/UserTbs";
+        string apiUrl = "https://localhost:7121/api/UserTbs/";
         HttpClient client=new HttpClient();
         public async Task<ActionResult> Index()
         {

@@ -14,37 +14,38 @@ namespace Frontend.Controllers
         {
             try
             {
-                // Fetch data from API
-                var users = await client.GetFromJsonAsync<List<UserTb>>($"{apiUrl}UserTbs/");
-                var organizers = await client.GetFromJsonAsync<List<OrganizerTb>>($"{apiUrl}OrganizerTbs/");
-                var events = await client.GetFromJsonAsync<List<EventTb>>($"{apiUrl}EventTbs/");
+                // Fetch total counts of Users, Organizers, and Events
+                var totalUsers = (await client.GetFromJsonAsync<List<UserTb>>($"{apiUrl}UserTbs/")).Count;
+                var totalOrganizers = (await client.GetFromJsonAsync<List<OrganizerTb>>($"{apiUrl}OrganizerTbs/")).Count;
+                var totalEvents = (await client.GetFromJsonAsync<List<EventTb>>($"{apiUrl}EventTbs/")).Count;
 
-                // Ensure data is not null and fetch counts
-                var totalUsers = users?.Count ?? 0;
-                var totalOrganizers = organizers?.Count ?? 0;
-                var totalEvents = events?.Count ?? 0;
-
-                // Log for debugging
-                Console.WriteLine($"Total Users: {totalUsers}, Total Organizers: {totalOrganizers}, Total Events: {totalEvents}");
-
-                // Pass data to view
+                // Pass the data to the ViewBag for display
                 ViewBag.TotalUsers = totalUsers;
                 ViewBag.TotalOrganizers = totalOrganizers;
                 ViewBag.TotalEvents = totalEvents;
 
-                // Example chart data
-                ViewBag.MonthlyEarnings = new[] { 100, 200, 150, 300, 250, 400, 350 };
-                ViewBag.VisitSeparation = new { Mobile = 36.5, Tablet = 30.8, Desktop = 7.7, Other = 25.0 };
+                // Example data for the Monthly Earnings chart (replace with dynamic data if available)
+                ViewBag.MonthlyEarnings = new[] { 500, 700, 800, 650, 900, 1100, 950 };
+
+                // Example data for Visit Separation chart (replace with dynamic data if available)
+                ViewBag.VisitSeparation = new Dictionary<string, double>
+        {
+            { "Mobile", 36.5 },
+            { "Tablet", 30.8 },
+            { "Desktop", 7.7 },
+            { "Other", 25.0 }
+        };
             }
             catch (Exception ex)
             {
-                // Log the exception and show an error message
-                Console.WriteLine($"Error fetching data: {ex.Message}");
+                // Pass error details to the view in case of an exception
                 ViewBag.Error = "Error fetching data: " + ex.Message;
             }
 
+            // Return the Dashboard view
             return View();
         }
+
 
         public async Task<ActionResult> AdminLogin(AdminTb model)
         {
