@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using NuGet.Protocol.Plugins;
 
 namespace EventAPI.Controllers
 {
@@ -43,7 +44,47 @@ namespace EventAPI.Controllers
             }
             return booking;
         }
+        [HttpPut("{id}")]
 
+        // only update booking status
+        public async Task<ActionResult> PutBooking(int id,BookingTb bookingTb)
+        {
+            if (id != bookingTb.BookingId)
+            {
+                return BadRequest();
+            }
+            var exixstingbooking = await _context.BookingTbs.FindAsync(id);
+            if(exixstingbooking== null)
+            {
+                return NotFound(new { Message = "booking not found " });
+
+            }
+            exixstingbooking.BookingStatus = bookingTb.BookingStatus;
+              _context.Entry(exixstingbooking).State=EntityState.Modified;
+            try
+            {
+                await _context.SaveChangesAsync();
+
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!BookingTbExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return NoContent();
+
+        }
+        private bool BookingTbExists(int id)
+        {
+            return _context.BookingTbs.Any(e => e.UserId == id);
+        }
+
+    }
       
     }
-}
