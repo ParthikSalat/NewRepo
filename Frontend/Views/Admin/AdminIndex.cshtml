@@ -5,24 +5,50 @@
     <title>@ViewData["Title"] - Your App</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
     <style>
-        /* Sidebar styling */
+        /* General Styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+
+        /* Sidebar Styling */
         .sidebar {
             width: 250px;
-            background-color: #f8f9fa;
-            padding-top: 20px;
+            background-color: #343a40;
+            color: #fff;
+            height: 100vh;
             position: fixed;
             top: 0;
             left: -250px; /* Initially hidden */
-            height: 100vh;
-            border-right: 1px solid #ddd;
             overflow-y: auto;
+            padding-top: 20px;
             transition: left 0.3s; /* Smooth transition for sliding */
         }
 
-            /* Show sidebar when active */
+            /* Sidebar active class */
             .sidebar.active {
                 left: 0;
             }
+
+            .sidebar h4 {
+                text-align: center;
+                padding-bottom: 20px;
+
+            }
+
+            .sidebar .nav-link {
+                color: #adb5bd;
+                margin-bottom: 10px;
+                font-size: 16px;
+            }
+
+                .sidebar .nav-link:hover {
+                    color: #fff;
+                    background-color: #495057;
+                    border-radius: 5px;
+                }
 
         /* Black button styling */
         .navbar-toggler {
@@ -38,6 +64,17 @@
         .navbar-toggler-icon {
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3E%3Cpath stroke='white' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
         }
+
+        /* Main Content */
+        .content {
+            margin-left: 0;
+            padding: 20px;
+            transition: margin-left 0.3s; /* Smooth transition for content shift */
+        }
+
+            .content.shift {
+                margin-left: 250px;
+            }
     </style>
 </head>
 <body>
@@ -68,8 +105,8 @@
         </ul>
     </div>
 
-    <!-- Main content -->
-    <div class="content">
+    <!-- Main Content -->
+    <div class="content" id="content">
         <main role="main" class="container">
             <h1>Welcome to the Admin Panel</h1>
             <p>Your content goes here.</p>
@@ -82,9 +119,12 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
     <script>
-        // Toggle sidebar visibility function
+        // Sidebar toggle functionality
         function toggleSidebar() {
-            document.getElementById('sidebar').classList.toggle('active');
+            const sidebar = document.getElementById('sidebar');
+            const content = document.getElementById('content');
+            sidebar.classList.toggle('active');
+            content.classList.toggle('shift');
         }
     </script>
 </body>
