@@ -1,0 +1,98 @@
+﻿@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<div class="container-fluid">
+    <h1 class="my-4">Admin Dashboard</h1>
+
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card text-white bg-primary mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Total Users</h5>
+                    <p class="card-text">@ViewBag.TotalUsers</p> <!-- This should display the number -->
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card text-white bg-success mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Total Organizers</h5>
+                    <p class="card-text">@ViewBag.TotalOrganizers</p> <!-- This should display the number -->
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card text-white bg-info mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Total Events</h5>
+                    <p class="card-text">@ViewBag.TotalEvents</p> <!-- This should display the number -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <!-- Chart Row -->
+    <div class="row">
+        <div class="col-md-6">
+            <canvas id="monthlyEarningsChart"></canvas>
+        </div>
+        <div class="col-md-6">
+            <canvas id="visitSeparationChart"></canvas>
+        </div>
+    </div>
+</div>
+
+<!-- Chart.js Script -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Monthly Earnings Chart
+    const monthlyEarningsData = @Html.Raw(Json.Serialize(ViewBag.MonthlyEarnings));
+    const monthlyEarningsCtx = document.getElementById('monthlyEarningsChart').getContext('2d');
+    new Chart(monthlyEarningsCtx, {
+        type: 'line',
+        data: {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+            datasets: [{
+                label: 'Monthly Earnings',
+                data: monthlyEarningsData,
+                borderColor: '#007bff',
+                fill: true,
+                backgroundColor: 'rgba(0, 123, 255, 0.2)',
+            }]
+        }
+    });
+
+    // Visit Separation Chart
+    const visitSeparationData = @Html.Raw(Json.Serialize(ViewBag.VisitSeparation));
+    const visitSeparationCtx = document.getElementById('visitSeparationChart').getContext('2d');
+    new Chart(visitSeparationCtx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Mobile', 'Tablet', 'Desktop', 'Other'],
+            datasets: [{
+                data: Object.values(visitSeparationData),
+                backgroundColor: ['#007bff', '#28a745', '#ffc107', '#dc3545']
+            }]
+        }
+    });
+</script>
+
+<!-- Styles -->
+<style>
+    .card {
+        text-align: center;
+    }
+
+    canvas {
+        max-height: 300px;
+    }
+</style>
