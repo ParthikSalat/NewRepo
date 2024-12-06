@@ -64,19 +64,24 @@ namespace EventAPI.Controllers
         {
             if (id != userTb.UserId)
             {
+                Console.WriteLine($"ID mismatch: {id} != {userTb.UserId}");
                 return BadRequest();
             }
+
+            Console.WriteLine($"Received User Data: {userTb.UserName}, {userTb.UserEmail}, {userTb.UserPassword}");
 
             _context.Entry(userTb).State = EntityState.Modified;
 
             try
             {
                 await _context.SaveChangesAsync();
+                Console.WriteLine("Update successful.");
             }
             catch (DbUpdateConcurrencyException)
             {
                 if (!UserTbExists(id))
                 {
+                    Console.WriteLine("User not found.");
                     return NotFound();
                 }
                 else
@@ -87,6 +92,8 @@ namespace EventAPI.Controllers
 
             return NoContent();
         }
+
+
 
         // POST: api/UserTbs
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
