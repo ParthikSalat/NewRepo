@@ -19,7 +19,7 @@ namespace EventAPI.Controllers
         {
             _context = context;
         }
-        //login
+            //login
             [HttpPost("login")]
             public async Task<IActionResult> login(string email, string password)
             {

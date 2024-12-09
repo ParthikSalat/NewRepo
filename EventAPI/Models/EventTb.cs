@@ -17,6 +17,8 @@ public partial class EventTb
 
     public string? EventThem { get; set; }
 
+    public int? NumberOfTickets { get; set; }
+
     public int? EventTicketPrice { get; set; }
 
     public string? EventMoreDetails { get; set; }
