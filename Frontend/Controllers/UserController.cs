@@ -105,19 +105,21 @@ namespace Frontend.Controllers
         }
 
         // GET: UserController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int id)
         {
-            return View();
+            var data = await client.GetFromJsonAsync<UserTb>($"{apiUrl}{id}");
+            return View(data);
         }
 
         // POST: UserController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> Edit(int id, UserTb collection)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                await client.PutAsJsonAsync($"{apiUrl}{id}",collection);
+                return RedirectToAction("AdminUserIndex");
             }
             catch
             {
@@ -126,19 +128,21 @@ namespace Frontend.Controllers
         }
 
         // GET: UserController/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
-            return View();
+            var data = await client.GetFromJsonAsync<UserTb>($"{apiUrl}{id}");
+            return View(data);
         }
 
         // POST: UserController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<ActionResult> Delete(int id, IFormCollection collection)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                await client.DeleteAsync($"{apiUrl}{id}");
+                return RedirectToAction("AdminUserIndex");
             }
             catch
             {

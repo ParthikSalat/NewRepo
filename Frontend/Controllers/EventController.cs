@@ -86,7 +86,7 @@ namespace Frontend.Controllers
                 {
                     await client.PostAsJsonAsync($"{apiUrl}", data);
                     Console.WriteLine(data);
-                    return RedirectToAction(nameof(Index));
+                    return RedirectToAction("AdmineventIndex");
 
                 }
                 else { return View(); }
@@ -115,7 +115,7 @@ namespace Frontend.Controllers
                 if (ModelState.IsValid)
                 {
                     await client.PutAsJsonAsync($"{apiUrl}{id}", collection);
-                    return RedirectToAction(nameof(Index));
+                    return RedirectToAction("AdmineventIndex");
                 }
                 return View();
 
@@ -142,7 +142,7 @@ namespace Frontend.Controllers
             try
             {
                 var data = await client.DeleteAsync($"{apiUrl}{id}");
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("AdmineventIndex");
             }
             catch
             {

@@ -1,0 +1,77 @@
+﻿@{
+    ViewBag.Title = "Dashboard";
+}
+
+<div class="dashboard">
+    <h1>Dashboard</h1>
+
+    <!-- Total Users, Organizers, and Events -->
+    <div class="totals">
+        <div class="total-box">
+            <h3>Total Users</h3>
+            <p>@ViewBag.TotalUsers</p>
+        </div>
+        <div class="total-box">
+            <h3>Total Organizers</h3>
+            <p>@ViewBag.TotalOrganizers</p>
+        </div>
+        <div class="total-box">
+            <h3>Total Events</h3>
+            <p>@ViewBag.TotalEvents</p>
+        </div>
+    </div>
+
+    <!-- Monthly Earnings Chart -->
+    <div class="chart">
+        <h3>Monthly Earnings</h3>
+        <canvas id="monthlyEarningsChart"></canvas>
+    </div>
+
+    <!-- Visit Separation Chart -->
+    <div class="chart">
+        <h3>Visit Separation</h3>
+        <canvas id="visitSeparationChart"></canvas>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Monthly Earnings Chart
+        var ctx1 = document.getElementById('monthlyEarningsChart').getContext('2d');
+        var monthlyEarningsChart = new Chart(ctx1, {
+            type: 'bar',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+                datasets: [{
+                    label: 'Monthly Earnings (€)',
+                    data: @Html.Raw(Json.Serialize(ViewBag.MonthlyEarnings)),
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Visit Separation Chart (Pie Chart)
+        var ctx2 = document.getElementById('visitSeparationChart').getContext('2d');
+        var visitSeparationChart = new Chart(ctx2, {
+            type: 'pie',
+            data: {
+                labels: @Html.Raw(Json.Serialize(ViewBag.VisitSeparation.Keys.ToArray())),
+                datasets: [{
+                    data: @Html.Raw(Json.Serialize(ViewBag.VisitSeparation.Values.ToArray())),
+                    backgroundColor: ['#ff6384', '#36a2eb', '#cc65fe', '#ffce56'],
+                    hoverBackgroundColor: ['#ff6384', '#36a2eb', '#cc65fe', '#ffce56']
+                }]
+            }
+        });
+    </script>
+}

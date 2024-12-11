@@ -22,6 +22,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Event}/{action=eventhome}/{id?}");
+    pattern: "{controller=Admin}/{action=AdminLogin}/{id?}");
 
 app.Run();

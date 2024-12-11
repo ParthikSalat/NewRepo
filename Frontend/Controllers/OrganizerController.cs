@@ -111,7 +111,7 @@ namespace Frontend.Controllers
                 if (ModelState.IsValid)
                 {
                     await client.PutAsJsonAsync($"{apiUrl}{id}",collection);
-                    return RedirectToAction(nameof(Index));
+                    return RedirectToAction("AdminOrgIndex");
                 }
                 return View();
                
@@ -140,7 +140,7 @@ namespace Frontend.Controllers
             try
             {
                 var data = await client.DeleteAsync($"{apiUrl}{id}");
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("AdminOrgIndex");
             }
             catch
             {

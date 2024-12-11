@@ -46,7 +46,7 @@ namespace EventAPI.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAdminTb(int id, AdminTb adminTb)
         {
-            if (id != adminTb.AdminId)
+            if (id != adminTb.Adminid)
             {
                 return BadRequest();
             }
@@ -84,7 +84,7 @@ namespace EventAPI.Controllers
             }
             catch (DbUpdateException)
             {
-                if (AdminTbExists(adminTb.AdminId))
+                if (AdminTbExists(adminTb.Adminid))
                 {
                     return Conflict();
                 }
@@ -94,7 +94,7 @@ namespace EventAPI.Controllers
                 }
             }
 
-            return CreatedAtAction("GetAdminTb", new { id = adminTb.AdminId }, adminTb);
+            return CreatedAtAction("GetAdminTb", new { id = adminTb.Adminid }, adminTb);
         }
 
         // DELETE: api/AdminTbs/5
@@ -112,10 +112,28 @@ namespace EventAPI.Controllers
 
             return NoContent();
         }
+        // GET: api/AdminTbs/totals
+        [HttpGet("totals")]
+        public async Task<IActionResult> GetTotals()
+        {
+            var totalUsers = await _context.UserTbs.CountAsync();
+            var totalOrganizers = await _context.OrganizerTbs.CountAsync();
+            var totalEvents = await _context.EventTbs.CountAsync();
+
+            var totals = new
+            {
+                TotalUsers = totalUsers,
+                TotalOrganizers = totalOrganizers,
+                TotalEvents = totalEvents
+            };
+
+            return Ok(totals);
+        }
+
 
         private bool AdminTbExists(int id)
         {
-            return _context.AdminTbs.Any(e => e.AdminId == id);
+            return _context.AdminTbs.Any(e => e.Adminid == id);
         }
     }
 }

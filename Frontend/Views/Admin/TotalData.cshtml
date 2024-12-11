@@ -110,11 +110,12 @@
     </button>
 
     <!-- Sidebar -->
-    <div class="sidebar" id="sidebar"><br /><br />
+    <div class="sidebar" id="sidebar">
+        <br /><br />
         <h4>Admin Panel</h4>
         <ul class="nav flex-column">
             <li class="nav-item">
-                <a class="nav-link" href="/admin/TotalData">Dashboard</a>
+                <a class="nav-link" href="/admin/Dashboard">Dashboard</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/user/AdminUserIndex">User Details</a>
@@ -126,7 +127,7 @@
                 <a class="nav-link" href="/event/admineventindex">Events Details</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/admin/settings">Settings</a>
+                <a class="nav-link" asp-action="adminlogout" asp-controller="admin">Log Out</a>
             </li>
         </ul>
     </div>
@@ -179,14 +180,13 @@
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">User Distribution</h5>
+                        <h5 class="card-title">Music Types</h5>
                         <canvas id="userChart"></canvas>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 
     <script>
         // Sidebar toggle functionality
@@ -202,10 +202,10 @@
         const earningsChart = new Chart(earningsCtx, {
             type: 'line',
             data: {
-                labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+                labels: ['January', 'February', 'March', 'April', 'May', 'June' , 'July', 'Augest','September','Octomber','November','Desember'],
                 datasets: [{
                     label: 'Earnings',
-                    data: [100, 200, 300, 400, 500, 600],
+                    data: [150, 220, 340, 450, 560, 670,780,820,950,1070,1190,1260],
                     backgroundColor: 'rgba(54, 162, 235, 0.2)',
                     borderColor: 'rgba(54, 162, 235, 1)',
                     borderWidth: 2,
@@ -227,7 +227,7 @@
         const userChart = new Chart(userCtx, {
             type: 'doughnut',
             data: {
-                labels: ['Mobile', 'Tablet', 'Desktop', 'Others'],
+                labels: ['Rock', 'Classical', 'Electronic', 'Jazz'],
                 datasets: [{
                     data: [40, 30, 20, 10],
                     backgroundColor: ['#3498db', '#2ecc71', '#e74c3c', '#f1c40f'],

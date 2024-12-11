@@ -14,7 +14,7 @@
     <h4>Admin Panel</h4>
     <ul class="nav flex-column">
         <li class="nav-item">
-            <a class="nav-link" href="/admin/Dashboard">Dashboard</a>
+            <a class="nav-link" href="/admin/TotalData">Dashboard</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="/user/AdminUserIndex">User Details</a>
@@ -26,7 +26,7 @@
             <a class="nav-link" href="/event/AdmineventIndex">Events Details</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/admin/settings">Settings</a>
+            <a class="nav-link" asp-action="adminlogout" asp-controller="admin">Log Out</a>
         </li>
     </ul>
 </div>
@@ -81,28 +81,28 @@
         transition: left 0.3s; /* Smooth transition for sliding */
     }
 
-        .sidebar.active {
-            left: 0;
-        }
+    .sidebar.active {
+        left: 0;
+    }
 
-        .sidebar h4 {
-            text-align: center;
-            color: #fff;
-            margin-bottom: 20px;
-        }
+    .sidebar h4 {
+        text-align: center;
+        color: #fff;
+        margin-bottom: 20px;
+    }
 
-        .sidebar .nav-link {
-            color: #adb5bd;
-            font-size: 16px;
-            padding: 10px 20px;
-            display: block;
-        }
+    .sidebar .nav-link {
+        color: #adb5bd;
+        font-size: 16px;
+        padding: 10px 20px;
+        display: block;
+    }
 
-            .sidebar .nav-link:hover {
-                color: #fff;
-                background-color: #495057;
-                border-radius: 5px;
-            }
+    .sidebar .nav-link:hover {
+        color: #fff;
+        background-color: #495057;
+        border-radius: 5px;
+    }
 
     /* Navbar toggler */
     .navbar-toggler {
@@ -126,9 +126,48 @@
         transition: margin-left 0.3s;
     }
 
-        .content.shift {
-            margin-left: 250px;
-        }
+    .content.shift {
+        margin-left: 250px;
+    }
+
+    /* Card Container Styling */
+    .card-container {
+        display: flex; /* Enables flexbox for arranging cards */
+        flex-wrap: wrap; /* Wraps cards to the next row if there's no space */
+        gap: 20px; /* Adds space between cards */
+        justify-content: center; /* Centers cards horizontally */
+    }
+
+    /* Card Styling */
+    .card {
+        width: calc(33.33% - 20px); /* Two cards per row (50% each minus gap) */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Shadow for better look */
+        border: 1px solid #ddd; /* Optional: Border for definition */
+        border-radius: 8px; /* Optional: Rounded corners */
+        overflow: hidden; /* Clips content inside the card */
+    }
+
+    /* Card Image Styling */
+    .card-image img {
+        width: 100%; /* Ensures the image fills the card width */
+        height: 200px; /* Fixed height for consistency */
+        object-fit: cover; /* Prevents image distortion */
+    }
+
+    /* Card Content Styling */
+    .card-content {
+        padding: 15px; /* Adds padding inside the card */
+        text-align: left; /* Aligns text to the left */
+    }
+
+    /* Card Actions Styling */
+    .card-actions {
+        display: flex; /* Makes buttons align horizontally */
+        
+        gap: 10px; /* Adds spacing between buttons */
+        padding: 10px 15px; /* Adds padding for better spacing */
+        justify-content: flex-start; /* Aligns buttons to the left */
+    }
 </style>
 
 <!-- Sidebar Toggle Script -->

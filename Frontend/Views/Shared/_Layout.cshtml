@@ -52,21 +52,21 @@
     <header class="bg-light py-3">
         <div class="container">
             <nav class="navbar navbar-expand-sm navbar-light">
-                <a class="navbar-brand" href="@Url.Action("eventhome", "Event")">EventSite</a>
+                <a class="navbar-brand" href="@Url.Action("eventhome", "Event")"></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="@Url.Action("eventhome", "event")">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="@Url.Action("Privacy", "Home")">Privacy</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="@Url.Action("AdminLogin", "Admin")">Admin</a>
-                        </li>
+                        @* <li class="nav-item"> *@
+                        @*     <a class="nav-link" href="@Url.Action("eventhome", "event")">Home</a> *@
+                        @* </li> *@
+                        @* <li class="nav-item"> *@
+                        @*     <a class="nav-link" href="@Url.Action("Privacy", "Home")">Privacy</a> *@
+                        @* </li> *@
+                        @* <li class="nav-item"> *@
+                        @*     <a class="nav-link" href="@Url.Action("AdminLogin", "Admin")">Admin</a> *@
+                        @* </li> *@
 
                         <!-- Check if user is logged in -->
                         @if (ViewBag.data != null)
@@ -117,9 +117,9 @@
                         else
                         {
                             <!-- User is not logged in, show login options -->
-                            <li class="nav-item">
-                                <a class="nav-link" href="@Url.Action("Login", "User")">Login</a>
-                            </li>
+                            @* <li class="nav-item"> *@
+                            @*     <a class="nav-link" href="@Url.Action("Login", "User")">Login</a> *@
+                            @* </li> *@
                          
                         }
                     </ul>
