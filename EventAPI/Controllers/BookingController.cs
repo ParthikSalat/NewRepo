@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using NuGet.Protocol.Plugins;
 
 namespace EventAPI.Controllers
 {
@@ -17,14 +16,14 @@ namespace EventAPI.Controllers
             _context = context;
         }
 
-        //Get:api/Booking
+        // Get: api/Booking
         [HttpGet]
         public async Task<ActionResult<IEnumerable<BookingTb>>> GetBooking()
         {
             return await _context.BookingTbs.ToListAsync();
         }
 
-        //Post:api/Booking
+        // Post: api/Booking
         [HttpPost]
         public async Task<ActionResult<BookingTb>> PostBooking(BookingTb booking)
         {
@@ -33,58 +32,75 @@ namespace EventAPI.Controllers
             return CreatedAtAction("GetBooking", new { Id = booking.BookingId }, booking);
         }
 
-        [HttpGet("{id}")]
+        // Get: api/Booking/user/{userId}
+        [HttpGet("user/{userId}")]
+        public async Task<ActionResult<IEnumerable<BookingTb>>> GetBookingsByUserId(int userId)
+        {
+            var bookings = await _context.BookingTbs
+                                         .Where(b => b.UserId == userId)
+                                         .ToListAsync();
 
+            if (bookings == null || !bookings.Any())
+            {
+                return NotFound(new { Message = "No bookings found for this user." });
+            }
+
+            return bookings;
+        }
+
+        // Get: api/Booking/{id}
+        [HttpGet("{id}")]
         public async Task<ActionResult<BookingTb>> GetBooking(int id)
         {
             var booking = await _context.BookingTbs.FindAsync(id);
             if (booking == null)
             {
-                return NotFound();
+                return NotFound(new { Message = "Booking not found." });
             }
             return booking;
         }
-        [HttpPut("{id}")]
 
-        // only update booking status
-        public async Task<ActionResult> PutBooking(int id,BookingTb bookingTb)
+        // Put: api/Booking/{id}
+        [HttpPut("{id}")]
+        public async Task<ActionResult> PutBooking(int id, BookingTb bookingTb)
         {
             if (id != bookingTb.BookingId)
             {
-                return BadRequest();
+                return BadRequest(new { Message = "Booking ID mismatch." });
             }
-            var exixstingbooking = await _context.BookingTbs.FindAsync(id);
-            if(exixstingbooking== null)
-            {
-                return NotFound(new { Message = "booking not found " });
 
+            var existingBooking = await _context.BookingTbs.FindAsync(id);
+            if (existingBooking == null)
+            {
+                return NotFound(new { Message = "Booking not found." });
             }
-            exixstingbooking.BookingStatus = bookingTb.BookingStatus;
-              _context.Entry(exixstingbooking).State=EntityState.Modified;
+
+            // Only update booking status
+            existingBooking.BookingStatus = bookingTb.BookingStatus;
+            _context.Entry(existingBooking).State = EntityState.Modified;
+
             try
             {
                 await _context.SaveChangesAsync();
-
             }
             catch (DbUpdateConcurrencyException)
             {
                 if (!BookingTbExists(id))
                 {
-                    return NotFound();
+                    return NotFound(new { Message = "Booking not found." });
                 }
                 else
                 {
                     throw;
                 }
             }
-            return NoContent();
 
+            return NoContent();
         }
+
         private bool BookingTbExists(int id)
         {
-            return _context.BookingTbs.Any(e => e.UserId == id);
+            return _context.BookingTbs.Any(e => e.BookingId == id);
         }
-
     }
-      
-    }
+}
