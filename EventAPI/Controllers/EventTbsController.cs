@@ -43,6 +43,23 @@ namespace EventAPI.Controllers
 
             return eventTb;
         }
+        // GET: api/EventTbs/Organizer/5
+        [HttpGet("Organizer/{organizerId}")]
+        public async Task<ActionResult<IEnumerable<EventTb>>> GetEventsByOrganizerId(int organizerId)
+        {
+            // Fetch all events where the organizerId matches
+            var events = await _context.EventTbs
+                                        .Where(e => e.OrganizerId == organizerId)
+                                        .ToListAsync();
+
+            if (events == null || !events.Any())
+            {
+                return NotFound(new { message = "No events found for the given organizer ID." });
+            }
+
+            return Ok(events); // Return list of events
+        }
+
 
         // PUT: api/EventTbs/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
