@@ -40,6 +40,20 @@ namespace EventAPI.Controllers
 
             return ticketTb;
         }
+        [HttpGet("booking/{bookingId}")]
+        public async Task<ActionResult<TicketTb>> GetTicketByBookingId(int bookingId)
+        {
+            var ticketTb = await _context.TicketTbs
+                                         .FirstOrDefaultAsync(t => t.BookingId == bookingId);
+
+            if (ticketTb == null)
+            {
+                return NotFound(new { message = $"No ticket found with bookingId {bookingId}" });
+            }
+
+            return Ok(ticketTb);
+        }
+
 
         // PUT: api/TicketTbs/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754

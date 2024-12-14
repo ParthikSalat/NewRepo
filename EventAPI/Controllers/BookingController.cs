@@ -77,6 +77,8 @@ namespace EventAPI.Controllers
 
             // Only update booking status
             existingBooking.BookingStatus = bookingTb.BookingStatus;
+
+            //existingBooking.RemainingTicket = bookingTb.RemainingTicket; 
             _context.Entry(existingBooking).State = EntityState.Modified;
 
             try
@@ -96,7 +98,8 @@ namespace EventAPI.Controllers
             }
 
             return NoContent();
-        }
+        } // Put: api/Booking/{id}
+       
 
         private bool BookingTbExists(int id)
         {
